@@ -1,0 +1,41 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-3">
+    <!-- Plus Button for Creating New object -->
+    <div class="mb-3">
+        <button type="button" class="btn btn-outline-primary btn-block">
+            <i class="fas fa-plus"></i> Create New object
+        </button>
+    </div>
+    <!-- Objects Grid List-->
+    <div class="row" id="objects-list">
+        {% for object in objects %}
+        <div class="col-md-4 mb-4" style="min-height: 200px;">
+            <a href="{% url 'object' object.id %}" class="text-decoration-none text-dark">
+                <div class="card rounded h-100">
+                    <!-- Use the first photo as a preview, or a placeholder if no photos are available -->
+                    {% if object.photos.all %}
+                    <img src="{{ object.photos.all.0.image.url }}" class="card-img-top" alt="{{ object.name }}">
+                    {% else %}
+                    <img src="{% static 'base/img/default-placeholder.png' %}" class="card-img-top" alt="Placeholder">
+                    {% endif %}
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ object.name }}</h5>
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-outline-secondary btn-sm">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button type="button" class="btn btn-outline-danger btn-sm">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

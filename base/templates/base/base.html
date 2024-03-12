@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Django Project</title>
+    <!-- Bootstrap and FontAwesome CSS -->
+    <link rel="stylesheet" href="{% static 'base/css/bootstrap-4.5.2.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <!-- HTMX and Jquery JS -->
+    <script src="{% static 'base/js/htmx-1.9.10.js' %}"></script>
+    <script src="{% static 'base/js/jquery-3.5.1.slim.min.js' %}"></script>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <!-- Navbar -->
+    {% include 'base/includes/navbar.html' %}
+
+    <!-- Page Content -->
+    <div class="container mt-4 flex-grow-1">
+        {% block content %}
+        <!-- The content of each page will be inserted here -->
+        {% endblock %}
+    </div>
+
+    <!-- Footer -->
+    {% include 'base/includes/footer.html' %}
+
+    <!-- Bootstrap Bundle JS (includes Popper) -->
+    <script src="{% static 'base/js/bootstrap-4.5.2.bundle.min.js' %}"></script>
+    <!-- HTML Auto CSRF -->
+    <script>
+        document.body.addEventListener('htmx:configRequest', (event) => {
+            event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+        })
+    </script>
+</body>
+</html>
