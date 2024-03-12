@@ -6,4 +6,4 @@ from myapp.models import MyModel
 def my_view(request):
     objects = MyModel.objects.all()
     context = {"objects": objects}
-    return render(request, 'myapp/includes/myapp_list.html', {'context': context})
+    return render(request, 'myapp/objects.html', {'context': context})
